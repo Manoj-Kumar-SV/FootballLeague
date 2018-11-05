@@ -1,0 +1,59 @@
+ <!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+<script>
+    function sendDetails()
+    {
+        var firstName = document.getElementById("fname").value;
+        var lastName = document.getElementById("lname").value;
+
+        var jsObject = {
+            fname:firstName,
+            lname:lastName
+        }
+
+        $.ajax({
+            url:"/addStudent",
+            type:"POST",
+            data:JSON.stringify(jsObject),
+            beforeSend:function(request)
+            {
+                request.setRequestHeader("Content-Type","application/json");
+                request.setRequestHeader("Accept","text/plain");
+            },
+            success:function(responseMessage)
+            {
+                //alert(responseMessage);
+                document.getElementById("response").innerText = responseMessage;
+            },
+            error:function(error)
+            {
+                alert(error);
+            }
+
+        });
+
+
+
+    }
+</script>
+<body background=http://asad1.com/wp-content/uploads/2017/12/Football-Wallpaper5.jpg>
+    <h1><center>FOOTBALL LEAGUE DETAILS</center></h1>
+    <center> CHOOSE ANY OPTION </center>
+    <form action="">
+        <input type="radio" name="option" value="1"> UPDATE MATCH DETAILS<br>
+        <input type="radio" name="option" value="2"> LIST ALL MATCHES<br>
+        <input type="radio" name="option" value="3"> EXIT
+      </form>
+        First name: <input type="text" id="fname"><br>
+        Last name: <input type="text" id="lname"><br>
+        <input type="submit" value="Submit" onclick="sendDetails()">
+        <p id="response"></p>
+      <center><button type="button">SUBMIT</button></center>    
+      <center>The purpose of this website is to update or give football league details</center>
+    
+    
+</body>
+</html>
